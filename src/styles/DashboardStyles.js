@@ -86,5 +86,406 @@ const style = {
     dashboardIcon: {
         marginRight: '20px',
     },
+    titleContainer: {
+        backgroundColor: '#16304d',
+        width: '100%',
+        height: '100%',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    titleText: {
+        fontFamily: 'Semibold',
+        fontSize: '25px',
+        color: '#fff',
+    },
+    formRegisterContainer: {
+        marginTop: '3vh',
+
+    },
+    registerForm1: {
+        backgroundColor: '#fff',
+        boxShadow: 1,
+        padding: '10px',
+    },
+
+    registerForm2: {
+        backgroundColor: '#fff',
+        boxShadow: 1,
+        padding: '10px',
+    },
+    subTitle: {
+        backgroundColor: '#16304d',
+        height: '50px',
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '20px',
+    },
+
+    subTitleText: {
+        fontFamily: 'Poppins',
+        color: '#fff',
+        marginLeft: '10px',
+    },
+    paperMain1: {
+        width: {
+            xs: '100%',
+            sm: '100%',
+            md: '50%',
+            lg: '50%',
+        },
+    },
+    paperMain2: {
+        width: {
+            xs: '100%',
+            sm: '100%',
+            md: '48%',
+            lg: '48%',
+        },
+    },
+    infoTextBox: {
+        '& .MuiOutlinedInput-root': {
+            '&:hover': {
+                borderColor: '#16304d',
+            },
+            
+        },
+
+        '& .MuiInputBase-input': {
+            
+            color: '#000',
+        },
+        width: {
+            xs: '180px',
+            sm: '195px',
+            md: '195px',
+            lg: '300px',
+            xl: '480px',
+        },
+       
+
+    },
+    genderSelect: {
+        border: '1px solid #16304d',
+        height: '40px',
+        width: {
+            xs: '180px',
+            sm: '195px',
+            md: '195px',
+            lg: '300px',
+            xl: '480px',
+        },
+        fontFamily: 'Poppins',
+        color: '#000',
+        marginRight: '10px',
+    },
+
+    pickDate: {
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: '#16304d',
+            },
+
+            '&:hover fieldset': {
+                borderColor: '#16304d',
+            },
+
+            '&.Mui-focused fieldset': {
+                borderColor: '#16304ds',
+            },
+
+            fontFamily: 'Poppins',
+            borderRadius: 0,
+        },
+
+        '& .MuiInputBase-input': {
+            padding: '10px',
+            color: '#000',
+        },
+
+        width: {
+            xs: '180px',
+            sm: '195px',
+            md: '195px',
+            lg: '300px',
+            xl: '480px',
+        },
+        marginRight: '10px',
+    },
+
+    pictureContainerMain: {
+        marginTop: '50px',
+        display: 'flex',
+    },
+
+    pictureContainer: {
+        marginRight: '10px'
+    },
+
+    pictureDetail: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '150px',
+    },
+
+    instructionUpload: {
+        fontFamily: 'Semibold',
+        fontSize: '18px',
+    },
+
+    subInstruction: {
+        fontFamily: 'Poppins',
+    },
+
+    uploadButton: {
+        borderRadius: 0,
+        boxShadow: 0,
+        fontFamily: 'Poppins',
+        textTransform: 'capitalize',
+    },
+
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+    infoItemContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        marginTop: '5px',
+    },
+
+    infoItemText: {
+        fontFamily: 'Poppins',
+    },
+    tableProperties1: {
+        maxHeight: '50vh',
+    },
+    tableBox: {
+        display: 'flex',
+        width: '50%',
+        flexDirection: 'column',
+    },
+    searchContainer: {
+        justifyContent: 'space-between',
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: '5px',
+    },
+    textAndButton: {
+        display: 'flex',
+    },
+    searchBar: {
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: '#16304d',
+            },
+
+            '&:hover fieldset': {
+                borderColor: '#16304d',
+            },
+
+            '&.Mui-focused fieldset': {
+                borderColor: '#16304ds',
+            },
+
+            fontFamily: 'Poppins',
+
+        },
+
+        '& .MuiInputBase-input': {
+            padding: '10px',
+            color: '#000',
+        },
+
+        width: {
+            xs: '80px',
+            sm: '180px',
+            md: '250px',
+            lg: '400px',
+        },
+        marginRight: '10px',
+    },
+
+    searchButton: {
+        boxShadow: 0,
+        borderRadius: 0,
+    },
+    sortChoice: {
+        border: '1px solid #16304d',
+        height: '40px',
+        width: '30%',
+        fontFamily: 'Poppins',
+        color: '#000',
+    },
+    menuItemText: {
+        fontFamily: 'Poppins',
+    },
+    summaryCountContainer: {
+        marginTop: '50px',
+    },
+    perItem: {
+        margin: '10px',
+    },
+    detailContainer: {
+        backgroundColor: '#fff',
+        boxShadow: 1,
+        borderRadius: '5vm',
+        padding: '15px',
+        display: 'flex',
+        width: {
+            xs: '300px',
+            sm: '300px',
+            md: '300px',
+            lg: '200px',
+        },
+        justifyContent: 'space-between',
+    },
+    coloredIcon1: {
+        backgroundColor: '#d46600',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+    infoIconColor: {
+        color: '#fff',
+    },
+    infoTextContainer: {
+        textAlign: 'right',
+    },
+    infoDescription: {
+        fontFamily: 'Poppins',
+        fontSize: '14px',
+        color: '#6e6e6e',
+    },
+    infoDescriptionValue: {
+        fontFamily: 'Semibold',
+        fontSize: '18px',
+    },
+    coloredIcon2: {
+        backgroundColor: '#0097f5',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+    coloredIcon3: {
+        backgroundColor: '#c730a4',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+    coloredIcon4: {
+        backgroundColor: '#479923',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+    coloredIcon5: {
+        backgroundColor: '#5918c9',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+    coloredIcon6: {
+        backgroundColor: '#c91818',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+    coloredIcon7: {
+        backgroundColor: '#4f4d4d',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+    coloredIcon8: {
+        backgroundColor: '#d4a302',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+
+
 }
 export default style

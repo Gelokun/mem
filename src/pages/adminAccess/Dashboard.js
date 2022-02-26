@@ -19,7 +19,7 @@ import { signOut } from 'firebase/auth';
 
 export default function Dashboard() {
     const navigate = useNavigate()
-    const [payload, setPayload] = useState("userinfo");
+    const [payload, setPayload] = React.useState("userinfo");
     const tabChange = (event, newPayload) => {
         event.preventDefault();
         setPayload(newPayload);
@@ -75,7 +75,7 @@ export default function Dashboard() {
                             display: 'flex',
                             minHeight: '100vh',
                             height: '100%',
-                            width: '15%',
+                            width: '18vw',
                             backgroundColor: (theme) => theme.palette.primary.main
                         }}
                     >
@@ -102,13 +102,13 @@ export default function Dashboard() {
                             </Box>
                         </Box>
 
-                        <Tab label="Home" value='dashHome' icon={<HomeIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Residents Information" value='resInfo' icon={<PeopleAltIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Add Resident" value='addRes' icon={<PersonAddIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Edit/Delete Residence" value='editDelRes' icon={<EditIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Documents and Request" value='docReq' icon={<ArticleIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Organization" value='orgs' icon={<CorporateFareIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Settings" value='settings' icon={<SettingsIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Home" value={'dashHome'} icon={<HomeIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Residents Information" value={'resInfo'} icon={<PeopleAltIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Add Resident" value={'addRes'} icon={<PersonAddIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Edit/Delete Residence" value={'editDelRes'} icon={<EditIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Documents and Request" value={'docReq'} icon={<ArticleIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Organization" value={'orgs'} icon={<CorporateFareIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Settings" value={'settings'} icon={<SettingsIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
                         <Tab label="Log Out" icon={<LogoutIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} onClick={handleSignOut} />
                     </TabList>
 

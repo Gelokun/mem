@@ -30,7 +30,7 @@ export default function Login() {
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, payload.email, payload.password)
             .then((userCredential) => {
-                navigate('/dashboard')
+                navigate('/dashboard/dashboard-home')
             })
             .catch((err) => {
                 const errorMessage = err.code;

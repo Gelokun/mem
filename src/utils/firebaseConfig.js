@@ -1,11 +1,11 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAi8thcWo-WN71wwwuAZ0AJW56enKIMh0k",
-    authDomain: "memcaps-8235e.firebaseapp.com",
-    projectId: "memcaps-8235e",
-    storageBucket: "memcaps-8235e.appspot.com",
-    messagingSenderId: "846938238797",
-    appId: "1:846938238797:web:e0d866655e7840e0a4d104",
-    measurementId: "G-3G6ZS83DQ1"
+    apiKey: "AIzaSyAvxmQsNMRMB33HALXRMA3-7G5IJI1uB5A",
+    authDomain: "new-mem.firebaseapp.com",
+    projectId: "new-mem",
+    storageBucket: "new-mem.appspot.com",
+    messagingSenderId: "266800007891",
+    appId: "1:266800007891:web:edbaa527a5b71f0e0f2226",
+    measurementId: "G-YMV3JTBM7G"
 };
 
 export default firebaseConfig;

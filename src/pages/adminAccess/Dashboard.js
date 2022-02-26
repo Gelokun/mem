@@ -75,12 +75,12 @@ export default function Dashboard() {
                             display: 'flex',
                             minHeight: '100vh',
                             height: '100%',
-                            width: '15%',
+                            width: '15vw',
                             backgroundColor: (theme) => theme.palette.primary.main
                         }}
                     >
                         <Box sx={style.dashboardContainer}>
-                            <Avatar src={logo} sx={{ width: 80, height: 80, m: 1 }} />
+                            <Avatar src={logo} sx={{ width: '20%', height: '20%', m: 1 }} />
                             <Box component='span' sx={{ flexGrow: 1 }}>
                                 <Typography variant="h6" color='white'>
                                     Tibagan

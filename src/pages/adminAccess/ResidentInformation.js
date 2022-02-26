@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { collection,  getDocs } from "firebase/firestore";
+import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import style from "../../styles/DashboardStyles";
 import { Box } from "@mui/system";
@@ -30,18 +30,26 @@ import ElderlyIcon from "@mui/icons-material/Elderly";
 import FaceIcon from "@mui/icons-material/Face";
 
 export default function ResidentInformation() {
-  const [users, setUsers] = useState();
 
-  const usersCollectionRef = collection(db, "users");
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+  const [users, setUsers] = useState([]);
 
-    getUsers();
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  useEffect( async () =>  {
+    let dataUser = [];
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      dataUser.push({id:doc.id, ...doc.data() })
+      })
+      setTimeout(() => {
+        setUsers(dataUser)
+        setIsLoading(false)
+        }, 500)
+        
+    });
+    
   return (
     <Box>
       {/*Table and Information*/}
@@ -130,15 +138,14 @@ export default function ResidentInformation() {
                   </TableRow>
                 </TableHead>
 
-                
                 <TableBody>
-                {users.map((user) => {
-                  return (
+                { isLoading ? (<></>) : (<>
+                 {users.map((user) => {
+                   return (
                       <TableRow>
                         <TableCell> {user.LastName}</TableCell>
                         <TableCell> {user.FirstName}</TableCell>
                         <TableCell> {user.MiddleName}</TableCell>
-                        <TableCell> {user.Birthday}</TableCell>
                         <TableCell> {user.Address}</TableCell>
                         <TableCell> {user.Purok}</TableCell>
                         <TableCell> {user.Email}</TableCell>
@@ -155,10 +162,10 @@ export default function ResidentInformation() {
                         <TableCell> {user.Voter}</TableCell>
                         <TableCell> {user.Photo}</TableCell>
                       </TableRow>
-                     );
-                    })}
+                   )})}
+                   </>)}
+                          
                 </TableBody>
-               
               </Table>
             </TableContainer>
           </Box>

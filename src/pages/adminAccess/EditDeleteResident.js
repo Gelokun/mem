@@ -16,22 +16,25 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function EditDeleteResident(){
-  const [users, setUsers] = useState();
-  const usersCollectionRef = collection(db, "users");
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
+  useEffect( async () =>  {
+    let dataUser = [];
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      dataUser.push({id:doc.id, ...doc.data() })
+      })
+      setTimeout(() => {
+        setUsers(dataUser)
+        setIsLoading(false)
+        }, 500)
+        
+    });
   const deleteUser = async (id) => {
     const userDoc = doc(db, "users", id);
     await deleteDoc(userDoc);
   };
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getUsers();
-  }, []);
 
   return (
     <Box sx={{ marginTop: "10px", width: "70%" }}>
@@ -61,14 +64,14 @@ export default function EditDeleteResident(){
             </TableRow>
           </TableHead>
 
-          {users.map((users) => (
-
           <TableBody>
+          { isLoading ? (<> </>) : (<>
+                 {users.map((users) => {
+                   return (
                 <TableRow>
                   <TableCell> {users.LastName}</TableCell>
                   <TableCell> {users.FirstName}</TableCell>
                   <TableCell> {users.MiddleName}</TableCell>
-                  <TableCell> {users.Birthday}</TableCell>
                   <TableCell> {users.Address}</TableCell>
                   <TableCell> {users.Purok}</TableCell>
                   <TableCell> {users.Email}</TableCell>
@@ -86,7 +89,7 @@ export default function EditDeleteResident(){
                   <TableCell> {users.Photo}</TableCell>
 
                   {/*<button onClick={()=>{UpdateUser(user.id, user.age)}}>Increase Age</button>*/}
-                  <TableCell sx={style.Y}>
+                  <TableCell>
                     <IconButton
                       onClick={() => {
                         deleteUser(users.id);
@@ -98,10 +101,11 @@ export default function EditDeleteResident(){
                     </IconButton>
                   </TableCell>
                 </TableRow>
-              
+             )})}
+             </>)}
+                   
           </TableBody>
-          )
-        )}
+     
         </Table>
       </TableContainer>
     </Box>

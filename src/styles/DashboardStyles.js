@@ -160,8 +160,8 @@ const style = {
             xs: '180px',
             sm: '195px',
             md: '195px',
-            lg: '300px',
-            xl: '480px',
+            lg: '280px',
+            xl: '400px',
         },
        
 
@@ -173,8 +173,8 @@ const style = {
             xs: '180px',
             sm: '195px',
             md: '195px',
-            lg: '300px',
-            xl: '480px',
+            lg: '280px',
+            xl: '400px',
         },
         fontFamily: 'Poppins',
         color: '#000',
@@ -209,9 +209,8 @@ const style = {
             sm: '195px',
             md: '195px',
             lg: '300px',
-            xl: '480px',
+            xl: '400px',
         },
-        marginRight: '10px',
     },
 
     pictureContainerMain: {

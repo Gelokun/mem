@@ -228,12 +228,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -255,12 +255,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -284,12 +284,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -310,12 +310,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -336,12 +336,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -362,12 +362,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -388,12 +388,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}
@@ -414,12 +414,12 @@ export default function AddResident() {
                   MenuProps={{
                     anchorOrigin: {
                       vertical: "bottom",
-                      horizontal: "top",
+                      horizontal: "left",
                     },
 
                     transformOrigin: {
-                      vertical: "bottom",
-                      horizontal: "bottom",
+                      vertical: "top",
+                      horizontal: "left",
                     },
                     getContentAnchorEl: null,
                   }}

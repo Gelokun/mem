@@ -241,9 +241,8 @@ export default function AddResident() {
                   value={datas.gender}
                   name='gender'
                 >
-                  <MenuItem value={"1"}>Male</MenuItem>
-                  <MenuItem value={"2"}>Female</MenuItem>
-                  <MenuItem value={"3"}>Other</MenuItem>
+                  <MenuItem value={"Male"}>Male</MenuItem>
+                  <MenuItem value={"Female"}>Female</MenuItem>
                 </Select>
               </Box>
 
@@ -268,11 +267,11 @@ export default function AddResident() {
                   value={datas.civilStatus}
                   name='civilStatus'
                 >
-                  <MenuItem value={"1"}>Single</MenuItem>
-                  <MenuItem value={"2"}>Married</MenuItem>
-                  <MenuItem value={"3"}>Widowed</MenuItem>
-                  <MenuItem value={"4"}>Separated</MenuItem>
-                  <MenuItem value={"5"}>Divorce</MenuItem>
+                  <MenuItem value={"Single"}>Single</MenuItem>
+                  <MenuItem value={"Married"}>Married</MenuItem>
+                  <MenuItem value={"Widowed"}>Widowed</MenuItem>
+                  <MenuItem value={"Separated"}>Separated</MenuItem>
+                  <MenuItem value={"Divorce"}>Divorce</MenuItem>
                 </Select>
               </Box>
 
@@ -297,8 +296,8 @@ export default function AddResident() {
                   value={datas.indigent}
                   name='indigent'
                 >
-                  <MenuItem value={"1"}>Yes</MenuItem>
-                  <MenuItem value={"2"}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </Box>
 
@@ -323,8 +322,8 @@ export default function AddResident() {
                   value={datas.fourPs}
                   name='fourPs'
                 >
-                  <MenuItem value={"1"}>Eligible</MenuItem>
-                  <MenuItem value={'2'}>Not Qualified</MenuItem>
+                  <MenuItem value={"Eligible"}>Eligible</MenuItem>
+                  <MenuItem value={'Not Qualified'}>Not Qualified</MenuItem>
                 </Select>
               </Box>
 
@@ -349,8 +348,8 @@ export default function AddResident() {
                   value={datas.soloParent}
                   name='soloParent'
                 >
-                  <MenuItem value={1}>Yes</MenuItem>
-                  <MenuItem value={2}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </Box>
 
@@ -375,8 +374,8 @@ export default function AddResident() {
                   value={datas.pwd}
                   name='pwd'
                 >
-                  <MenuItem value={1}>Yes</MenuItem>
-                  <MenuItem value={2}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </Box>
 
@@ -401,8 +400,8 @@ export default function AddResident() {
                   value={datas.scholar}
                   name='scholar'
                 >
-                  <MenuItem value={"1"}>Yes</MenuItem>
-                  <MenuItem value={"2"}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </Box>
 
@@ -427,8 +426,8 @@ export default function AddResident() {
                   value={datas.voter}
                   name='voter'
                 >
-                  <MenuItem value={"1"}>Yes</MenuItem>
-                  <MenuItem value={"2"}>No</MenuItem>
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </Box>
 

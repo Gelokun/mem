@@ -93,6 +93,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>First Name:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.firstName}
@@ -104,6 +105,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Middle Name:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.middleName}
@@ -115,6 +117,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Last Name:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.lastName}
@@ -149,6 +152,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Address:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.address}
@@ -160,6 +164,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Purok:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.purok}
@@ -171,6 +176,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Email:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.email}
@@ -182,6 +188,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Contact No.:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.contactNum}
@@ -193,6 +200,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Religion:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.religion}
@@ -204,6 +212,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Occupation:</Typography>
                 <TextField
+                  size="small"
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.occupation}

@@ -6,6 +6,10 @@ const theme = ({
             contrastText: '#fff',
         },
         secondary: {
+            main: '#1976D2',
+            contrastText: '#fff',
+        },
+        thirtiary: {
             main: '#195919',
             contrastText: '#fff',
         },

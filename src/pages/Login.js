@@ -51,10 +51,11 @@ export default function Login() {
                         </Alert>
                     </Box>
                 )}
-                <TextField sx={style.myTextField} label="Email" variant="outlined" color='secondary' value={payload.email || ''} onChange={handleChange('email')} />
+                <TextField sx={style.myTextField} label="Email" autoComplete='off' variant="outlined" color='secondary' value={payload.email || ''} onChange={handleChange('email')} />
                 <FormControl sx={style.myTextField} variant="outlined" color='secondary'>
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
+                        autoComplete='off'
                         id="outlined-adornment-password"
                         type={payload.showPassword ? 'text' : 'password'}
                         value={payload.password || ''}
@@ -77,8 +78,8 @@ export default function Login() {
                 <Button variant="contained"
                     color='primary'
                     onClick={handleLogin}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+                    onKeyPress={(e) => {
+                        if (e.keyCode === 13) {
                             handleLogin();
                         }
                     }}>

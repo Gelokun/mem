@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Box, CircularProgress, Tab, Card, Button } from '@mui/material';
+import { Grid, Box, CircularProgress, Tab, Card, Typography, Avatar } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Outlet, useNavigate } from 'react-router-dom';
-
+import style from '../../styles/DashboardStyles';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -11,47 +11,13 @@ import ArticleIcon from '@mui/icons-material/Article';
 import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
-import PaidIcon from '@mui/icons-material/Paid';
-import PollIcon from '@mui/icons-material/Poll';
-import AccessibleIcon from '@mui/icons-material/Accessible';
-import ElderlyIcon from '@mui/icons-material/Elderly';
-import FaceIcon from '@mui/icons-material/Face';
-
+import logo from '../../images/bustos.png';
+import admin from '../../images/admin.jpg';
 import { auth } from '../../utils/firebase';
 import { signOut } from 'firebase/auth';
 
-const classes = {
-    muiBox: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    muiComponents: {
-        width: '100vw',
-        maxHeight: '100vh',
-        flexDirection: 'row',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flexStart'
-    },
-    muiText: {
-        fontSize: '3rem',
-        fontFamily: 'Varela Round'
-    },
-    panels: {
-        borderRight: 1,
-        borderColor: 'divider',
-        display: 'flex',
-        minHeight: '100vh',
-        height: '100%',
-        width: '15%'
-    }
-}
+
 export default function Dashboard() {
-    const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const [payload, setPayload] = useState("userinfo");
     const tabChange = (event, newPayload) => {
@@ -92,25 +58,58 @@ export default function Dashboard() {
     }
     return (
         <Box
-            sx={classes.muiBox}>
+            sx={style.muiBox}>
             <Box
                 component={Card}
-                sx={classes.muiComponents}>
+                sx={style.muiComponents}>
                 <TabContext value={payload}>
                     <TabList
                         orientation="vertical"
                         onChange={tabChange}
                         aria-label="Vertical tabs example"
-                        sx={{ borderRight: 1, borderColor: 'divider', display: 'flex', minHeight: '100vh', height: '100%', width: '15%' }}
+                        textColor='secondary'
+                        indicatorColor="secondary"
+                        sx={{
+                            borderRight: 1,
+                            borderColor: 'divider',
+                            display: 'flex',
+                            minHeight: '100vh',
+                            height: '100%',
+                            width: '15%',
+                            backgroundColor: (theme) => theme.palette.primary.main
+                        }}
                     >
-                        <Tab label="Home" value='dashHome' />
-                        <Tab label="Residents Information" value='resInfo' />
-                        <Tab label="Add Resident" value='addRes' />
-                        <Tab label="Edit/Delete Residence" value='editDelRes' />
-                        <Tab label="Documents and Request" value='docReq' />
-                        <Tab label="Organization" value='orgs' />
-                        <Tab label="Settings" value='settings' />
-                        <Button onClick={handleSignOut}>Logout</Button>
+                        <Box sx={style.dashboardContainer}>
+                            <Avatar src={logo} sx={{ width: 80, height: 80, m: 1 }} />
+                            <Box component='span' sx={{ flexGrow: 1 }}>
+                                <Typography variant="h6" color='white'>
+                                    Tibagan
+                                </Typography>
+                                <Typography variant="h6" color='white'>
+                                    Bustos, Bulacan
+                                </Typography>
+                            </Box>
+                        </Box>
+                        {/*Admin Profile Picture*/}
+                        <Box sx={style.adminPictureContainer}>
+                            <Avatar
+                                src={admin}
+                                sx={style.adminPicture}
+                            />
+                            <Box sx={style.adminNamePosition}>
+                                <Typography sx={style.adminName}>Meressel Manongtong</Typography>
+                                <Typography sx={style.adminPosition}>Administrator</Typography>
+                            </Box>
+                        </Box>
+
+                        <Tab label="Home" value='dashHome' icon={<HomeIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Residents Information" value='resInfo' icon={<PeopleAltIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Add Resident" value='addRes' icon={<PersonAddIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Edit/Delete Residence" value='editDelRes' icon={<EditIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Documents and Request" value='docReq' icon={<ArticleIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Organization" value='orgs' icon={<CorporateFareIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Settings" value='settings' icon={<SettingsIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
+                        <Tab label="Log Out" icon={<LogoutIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} onClick={handleSignOut} />
                     </TabList>
 
                     <TabPanel value={payload} sx={{ position: 'relative' }}>

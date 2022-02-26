@@ -11,7 +11,8 @@ const style = {
         flexDirection: 'row',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flexStart'
+        justifyContent: 'flexStart',
+        backgroundColor: '#e2e2e2'
     },
     muiText: {
         fontSize: '3rem',
@@ -149,11 +150,11 @@ const style = {
             '&:hover': {
                 borderColor: '#16304d',
             },
-            
+
         },
 
         '& .MuiInputBase-input': {
-            
+
             color: '#000',
         },
         width: {
@@ -163,7 +164,7 @@ const style = {
             lg: '280px',
             xl: '400px',
         },
-       
+
 
     },
     genderSelect: {
@@ -249,6 +250,73 @@ const style = {
         display: 'flex',
         justifyContent: 'space-between',
     },
+    personalInfoTitle: {
+        backgroundColor: '#16304d',
+        height: '40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '3px',
+        marginBottom: '20px',
+    },
+
+    personalInfoText: {
+        color: '#fff',
+        fontFamily: 'Poppins',
+    },
+    residentInfoContainer: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: '5px',
+    },
+    infoContainer: {
+        width: '100%',
+        backgroundColor: '#fff',
+        boxShadow: 1,
+        marginTop: '65px',
+    },
+    infoFixed: {
+        width: '35%',
+        marginLeft: '10px',
+    },
+
+    infoTextFixed: {
+        fontFamily: 'Semibold',
+    },
+
+    mainInfo: {
+        fontFamily: 'Poppins',
+        color: '#6e6e6e',
+    },
+
+    menuItemText: {
+        fontFamily: 'Poppins',
+    },
+
+    summaryCountContainer: {
+        marginTop: '50px',
+    },
+
+    detailContainer: {
+        backgroundColor: '#fff',
+        boxShadow: 1,
+        borderRadius: '5px',
+        padding: '15px',
+        display: 'flex',
+        width: {
+            xs: '300px',
+            sm: '300px',
+            md: '300px',
+            lg: '200px',
+        },
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+
+    infoTextContainer: {
+        textAlign: 'right',
+    },
     infoItemContainer: {
         display: 'flex',
         alignItems: 'center',
@@ -264,8 +332,9 @@ const style = {
         maxHeight: '50vh',
     },
     tableBox: {
+        margin: 1,
         display: 'flex',
-        width: '50%',
+        width: '65%',
         flexDirection: 'column',
     },
     searchContainer: {

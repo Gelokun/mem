@@ -14,6 +14,7 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import admin from "../../images/admin.jpg";
+import moment from "moment";
 
 export default function AddResident() {
   const [birthDate, setBirthDate] = useState(new Date("2014-08-18"));
@@ -52,7 +53,7 @@ export default function AddResident() {
       FirstName: datas.firstName,
       MiddleName: datas.middleName,
       LastName: datas.lastName,
-      Birthday: new Date(birthDate),
+      Birthday: moment(new Date(birthDate)).format('LL').toString(),
       Address: datas.address,
       Purok: datas.purok,
       Email: datas.email,

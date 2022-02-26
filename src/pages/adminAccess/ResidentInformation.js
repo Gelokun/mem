@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import style from "../../styles/DashboardStyles";
 import { Box } from "@mui/system";
@@ -17,6 +17,7 @@ import {
   Select,
   TextField,
   Typography,
+  CircularProgress
 } from "@mui/material";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -30,26 +31,27 @@ import ElderlyIcon from "@mui/icons-material/Elderly";
 import FaceIcon from "@mui/icons-material/Face";
 
 export default function ResidentInformation() {
-
-
   const [users, setUsers] = useState([]);
-
+  const [selectedUser, setSelectedUser] = useState([])
   const [isLoading, setIsLoading] = useState(false);
-
-
-  useEffect( async () =>  {
+  const handleClick = (id) => {
+    const userRef = doc(db, 'users', id)
+    getDoc(userRef).then((docSnap) => {
+      setSelectedUser(docSnap.data())
+    })
+  }
+  useEffect(async () => {
     let dataUser = [];
     const querySnapshot = await getDocs(collection(db, "users"));
     querySnapshot.forEach((doc) => {
-      dataUser.push({id:doc.id, ...doc.data() })
-      })
-      setTimeout(() => {
-        setUsers(dataUser)
-        setIsLoading(false)
-        }, 500)
-        
-    });
-    
+      dataUser.push({ id: doc.id, ...doc.data() })
+    })
+    setTimeout(() => {
+      setUsers(dataUser)
+      setIsLoading(false)
+    }, 500)
+  });
+
   return (
     <Box>
       {/*Table and Information*/}
@@ -72,38 +74,38 @@ export default function ResidentInformation() {
               MenuProps={{
                 anchorOrigin: {
                   vertical: "bottom",
-                  horizontal: "top",
+                  horizontal: "left",
                 },
 
                 transformOrigin: {
-                  vertical: "bottom",
-                  horizontal: "bottom",
+                  vertical: "top",
+                  horizontal: "left",
                 },
                 getContentAnchorEl: null,
               }}
             >
-              <MenuItem value={"1"} sx={style.menuItemText}>
+              <MenuItem value={"Last Name"} sx={style.menuItemText}>
                 Last Name
               </MenuItem>
-              <MenuItem value={"2"} sx={style.menuItemText}>
+              <MenuItem value={"First Name"} sx={style.menuItemText}>
                 First Name
               </MenuItem>
-              <MenuItem value={"3"} sx={style.menuItemText}>
+              <MenuItem value={"Age"} sx={style.menuItemText}>
                 Age
               </MenuItem>
-              <MenuItem value={"4"} sx={style.menuItemText}>
+              <MenuItem value={"Birthday"} sx={style.menuItemText}>
                 Birthday
               </MenuItem>
-              <MenuItem value={"5"} sx={style.menuItemText}>
+              <MenuItem value={"Gender"} sx={style.menuItemText}>
                 Gender
               </MenuItem>
-              <MenuItem value={"6"} sx={style.menuItemText}>
+              <MenuItem value={"Purok"} sx={style.menuItemText}>
                 Purok
               </MenuItem>
-              <MenuItem value={"7"} sx={style.menuItemText}>
+              <MenuItem value={"Religion"} sx={style.menuItemText}>
                 Religion
               </MenuItem>
-              <MenuItem value={"8"} sx={style.menuItemText}>
+              <MenuItem value={"Voter"} sx={style.menuItemText}>
                 Voter
               </MenuItem>
             </Select>
@@ -111,60 +113,65 @@ export default function ResidentInformation() {
 
           {/*Table Start Here*/}
 
-          <Box sx={{ marginTop: "10px", width: "70%" }}>
+          <Box sx={{ marginTop: "10px", width: "100%" }}>
             <TableContainer sx={style.tableProperties1} component={Paper}>
               <Table sx={{ minWidth: 500 }} aria-label='simple table'>
                 <TableHead>
                   <TableRow>
-                    <TableCell align='right'>Lastname</TableCell>
-                    <TableCell align='right'>FirstName</TableCell>
-                    <TableCell align='right'>MiddleName</TableCell>
-                    <TableCell align='right'>Birthday</TableCell>
-                    <TableCell align='right'>Address</TableCell>
-                    <TableCell align='right'>Purok</TableCell>
-                    <TableCell align='right'>Email</TableCell>
-                    <TableCell align='right'>ContactNum</TableCell>
-                    <TableCell align='right'>Religion</TableCell>
-                    <TableCell align='right'>Occupation</TableCell>
-                    <TableCell align='right'>Gender</TableCell>
-                    <TableCell align='right'>CivilStatus</TableCell>
-                    <TableCell align='right'>Indigent</TableCell>
-                    <TableCell align='right'>4Ps</TableCell>
-                    <TableCell align='right'>SoloParent</TableCell>
-                    <TableCell align='right'>PWD</TableCell>
-                    <TableCell align='right'>Scholar</TableCell>
-                    <TableCell align='right'>Voter</TableCell>
-                    <TableCell align='right'>Photo</TableCell>
+                    <TableCell align='center'>Last name</TableCell>
+                    <TableCell align='center'>First name</TableCell>
+                    <TableCell align='center'>Middle name</TableCell>
+                    <TableCell align='center'>Birthday</TableCell>
+                    <TableCell align='center'>Address</TableCell>
+                    <TableCell align='center'>Purok</TableCell>
+                    <TableCell align='center'>Email</TableCell>
+                    <TableCell align='center'>Contact Number</TableCell>
+                    <TableCell align='center'>Religion</TableCell>
+                    <TableCell align='center'>Occupation</TableCell>
+                    <TableCell align='center'>Gender</TableCell>
+                    <TableCell align='center'>Civil Status</TableCell>
+                    <TableCell align='center'>Indigent</TableCell>
+                    <TableCell align='center'>4Ps</TableCell>
+                    <TableCell align='center'>Solo Parent</TableCell>
+                    <TableCell align='center'>PWD</TableCell>
+                    <TableCell align='center'>Scholar</TableCell>
+                    <TableCell align='center'>Voter</TableCell>
+                    <TableCell align='center'>Photo</TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
-                { isLoading ? (<></>) : (<>
-                 {users.map((user) => {
-                   return (
-                      <TableRow>
-                        <TableCell> {user.LastName}</TableCell>
-                        <TableCell> {user.FirstName}</TableCell>
-                        <TableCell> {user.MiddleName}</TableCell>
-                        <TableCell> {user.Address}</TableCell>
-                        <TableCell> {user.Purok}</TableCell>
-                        <TableCell> {user.Email}</TableCell>
-                        <TableCell> {user.ContactNum}</TableCell>
-                        <TableCell> {user.Religion}</TableCell>
-                        <TableCell> {user.Occupation}</TableCell>
-                        <TableCell> {user.Gender}</TableCell>
-                        <TableCell> {user.CivilStatus}</TableCell>
-                        <TableCell> {user.Indigent}</TableCell>
-                        <TableCell> {user.fourPs}</TableCell>
-                        <TableCell> {user.SoloParent}</TableCell>
-                        <TableCell> {user.PWD}</TableCell>
-                        <TableCell> {user.Scholar}</TableCell>
-                        <TableCell> {user.Voter}</TableCell>
-                        <TableCell> {user.Photo}</TableCell>
-                      </TableRow>
-                   )})}
-                   </>)}
-                          
+                  {isLoading ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: (theme) => theme.palette.background.default, }}>
+                      <CircularProgress size='30vw' thickness={3} />
+                    </Box>) : (<>
+                      {users.map((user) => {
+                        return (
+                          <TableRow key={user.id} onClick={() => handleClick(user.id)}>
+                            <TableCell align='center'> {user.LastName}</TableCell>
+                            <TableCell align='center'> {user.FirstName}</TableCell>
+                            <TableCell align='center'> {user.MiddleName}</TableCell>
+                            <TableCell align='center'> {user.Birthday}</TableCell>
+                            <TableCell align='center'> {user.Address}</TableCell>
+                            <TableCell align='center'> {user.Purok}</TableCell>
+                            <TableCell align='center'> {user.Email}</TableCell>
+                            <TableCell align='center'> {user.ContactNum}</TableCell>
+                            <TableCell align='center'> {user.Religion}</TableCell>
+                            <TableCell align='center'> {user.Occupation}</TableCell>
+                            <TableCell align='center'> {user.Gender}</TableCell>
+                            <TableCell align='center'> {user.CivilStatus}</TableCell>
+                            <TableCell align='center'> {user.Indigent}</TableCell>
+                            <TableCell align='center'> {user.fourPs}</TableCell>
+                            <TableCell align='center'> {user.SoloParent}</TableCell>
+                            <TableCell align='center'> {user.PWD}</TableCell>
+                            <TableCell align='center'> {user.Scholar}</TableCell>
+                            <TableCell align='center'> {user.Voter}</TableCell>
+                            <TableCell align='center'> {user.Photo}</TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </>)}
+
                 </TableBody>
               </Table>
             </TableContainer>
@@ -310,7 +317,218 @@ export default function ResidentInformation() {
             </Grid>
           </Box>
         </Grid>
+
+        <Grid item xs sx={style.residentInfoBox}>
+          <Box sx={style.infoContainer}>
+            <Box sx={style.personalInfoTitle}>
+              <Typography sx={style.personalInfoText}>Resident's Personal Information</Typography>
+            </Box>
+
+            {/*First Name*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>First Name:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.FirstName}</Typography>
+              </Box>
+            </Box>
+
+            {/*Last Name*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Last Name:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.LastName}</Typography>
+              </Box>
+            </Box>
+
+            {/*Address*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Address:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Address}</Typography>
+              </Box>
+            </Box>
+
+            {/*Age*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Age:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>16 Years Old</Typography>
+              </Box>
+            </Box>
+
+            {/*Birthday*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Birthday:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Birthday}</Typography>
+              </Box>
+            </Box>
+
+            {/*Civil Status*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Civil Status:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.CivilStatus}</Typography>
+              </Box>
+            </Box>
+
+            {/*Contact*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Contact No.:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.ContactNum}</Typography>
+              </Box>
+            </Box>
+
+            {/*Email Address*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Email Adress:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Email}</Typography>
+              </Box>
+            </Box>
+
+            {/*Gender*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Gender:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Gender}</Typography>
+              </Box>
+            </Box>
+
+            {/*Occupation*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Occupation:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Occupation}</Typography>
+              </Box>
+            </Box>
+
+            {/*Purok*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Purok:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Purok}</Typography>
+              </Box>
+            </Box>
+
+            {/*Religion*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Religion:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Religion}</Typography>
+              </Box>
+            </Box>
+
+            {/*Salary*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Salary:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>Php. 50,000.25</Typography>
+              </Box>
+            </Box>
+
+            {/*4P's*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>4P's:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.fourPs}</Typography>
+              </Box>
+            </Box>
+
+            {/*Indigent*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Indigent:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Indigent}</Typography>
+              </Box>
+            </Box>
+
+            {/*PWD*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>PWD:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.PWD}</Typography>
+              </Box>
+            </Box>
+
+            {/*Scholar*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Scholar:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Scholar}</Typography>
+              </Box>
+            </Box>
+
+            {/*Senior*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Senior Citizen:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>False</Typography>
+              </Box>
+            </Box>
+
+            {/*Solo Parent*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Solo Parent:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.SoloParent}</Typography>
+              </Box>
+            </Box>
+
+            {/*Voter*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Voter:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo}>{selectedUser.Voter}</Typography>
+              </Box>
+            </Box>
+
+            <Box sx={{ marginBottom: '10px', }} />
+          </Box>
+        </Grid>
       </Grid>
     </Box>
+
   );
 }

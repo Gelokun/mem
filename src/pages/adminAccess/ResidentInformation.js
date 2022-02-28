@@ -29,6 +29,7 @@ import PollIcon from "@mui/icons-material/Poll";
 import AccessibleIcon from "@mui/icons-material/Accessible";
 import ElderlyIcon from "@mui/icons-material/Elderly";
 import FaceIcon from "@mui/icons-material/Face";
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 
 export default function ResidentInformation() {
   const [users, setUsers] = useState([]);
@@ -133,6 +134,7 @@ export default function ResidentInformation() {
                     <TableCell align='right' sx={{ color: '#fff' }}>Indigent</TableCell>
                     <TableCell align='right' sx={{ color: '#fff' }}>4Ps</TableCell>
                     <TableCell align='right' sx={{ color: '#fff' }}>SoloParent</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Senior</TableCell>
                     <TableCell align='right' sx={{ color: '#fff' }}>PWD</TableCell>
                     <TableCell align='right' sx={{ color: '#fff' }}>Scholar</TableCell>
                     <TableCell align='right' sx={{ color: '#fff' }}>Voter</TableCell>
@@ -163,6 +165,7 @@ export default function ResidentInformation() {
                             <TableCell align='center'> {user.Indigent}</TableCell>
                             <TableCell align='center'> {user.fourPs}</TableCell>
                             <TableCell align='center'> {user.SoloParent}</TableCell>
+                            <TableCell align='center'> {user.Senior}</TableCell>
                             <TableCell align='center'> {user.PWD}</TableCell>
                             <TableCell align='center'> {user.Scholar}</TableCell>
                             <TableCell align='center'> {user.Voter}</TableCell>
@@ -314,11 +317,28 @@ export default function ResidentInformation() {
                   </Box>
                 </Box>
               </Grid>
+
+                 {/*Solo Parent*/}
+              <Grid item sx={style.perItem}>
+                <Box sx={style.detailContainer}>
+                  <Box sx={style.coloredIcon9}>
+                    <PeopleAltOutlinedIcon sx={style.infoIconColor} />
+                  </Box>
+                  <Box sx={style.infoTextContainer}>
+                    <Typography sx={style.infoDescription}>
+                      Solo Parent{" "}
+                    </Typography>
+                    <Typography sx={style.infoDescriptionValue}>
+                      10{" "}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
             </Grid>
           </Box>
         </Grid>
 
-        <Grid item xs sx={style.residentInfoBox}>
+        <Grid item xs={2} sx={style.residentInfoBox}>
           <Box sx={style.infoContainer}>
             <Box sx={style.personalInfoTitle}>
               <Typography sx={style.personalInfoText}>Resident's Personal Information</Typography>
@@ -444,15 +464,6 @@ export default function ResidentInformation() {
               </Box>
             </Box>
 
-            {/*Salary*/}
-            <Box sx={style.residentInfoContainer}>
-              <Box sx={style.infoFixed}>
-                <Typography sx={style.infoTextFixed}>Salary:</Typography>
-              </Box>
-              <Box>
-                <Typography sx={style.mainInfo}>Php. 50,000.25</Typography>
-              </Box>
-            </Box>
 
             {/*4P's*/}
             <Box sx={style.residentInfoContainer}>
@@ -500,7 +511,7 @@ export default function ResidentInformation() {
                 <Typography sx={style.infoTextFixed}>Senior Citizen:</Typography>
               </Box>
               <Box>
-                <Typography sx={style.mainInfo}>False</Typography>
+                <Typography sx={style.mainInfo}>{selectedUser.Senior}</Typography>
               </Box>
             </Box>
 

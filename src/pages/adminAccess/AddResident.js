@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { db } from "../../utils/firebase";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { Box } from "@mui/system";
 import style from "../../styles/DashboardStyles";
 import {
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import admin from "../../images/admin.jpg";
+import admin from "../../images/noone.jpg";
 import moment from "moment";
 
 export default function AddResident() {
@@ -35,6 +35,7 @@ export default function AddResident() {
     religion: "",
     occupation: "",
     gender: "",
+    senior: "",
     civilStatus: "",
     indigent: "",
     fourPs: "",
@@ -60,7 +61,8 @@ export default function AddResident() {
       ContactNum: datas.contactNum,
       Religion: datas.religion,
       Occupation: datas.occupation,
-      Gender: datas.occupation,
+      Gender: datas.gender,
+      Senior: datas.senior,
       CivilStatus: datas.civilStatus,
       Indigent: datas.indigent,
       fourPs: datas.fourPs,
@@ -220,6 +222,7 @@ export default function AddResident() {
                   name='occupation'
                 />
               </Box>
+             
             </Box>
           </Grid>
           {/*Form Left*/}
@@ -253,6 +256,32 @@ export default function AddResident() {
                 >
                   <MenuItem value={"Male"}>Male</MenuItem>
                   <MenuItem value={"Female"}>Female</MenuItem>
+                </Select>
+              </Box>
+
+            {/*Senior*/}
+            <Box sx={style.infoItemContainer}>
+                <Typography sx={style.infoItemText}>Senior:</Typography>
+                <Select
+                  sx={style.genderSelect}
+                  MenuProps={{
+                    anchorOrigin: {
+                      vertical: "bottom",
+                      horizontal: "left",
+                    },
+
+                    transformOrigin: {
+                      vertical: "top",
+                      horizontal: "left",
+                    },
+                    getContentAnchorEl: null,
+                  }}
+                  onChange={handleChanged}
+                  value={datas.senior}
+                  name='senior'
+                >
+                  <MenuItem value={"Yes"}>Yes</MenuItem>
+                  <MenuItem value={"No"}>No</MenuItem>
                 </Select>
               </Box>
 

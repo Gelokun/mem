@@ -215,7 +215,7 @@ const style = {
     },
 
     pictureContainerMain: {
-        marginTop: '50px',
+        marginTop: '30px',
         display: 'flex',
     },
 
@@ -268,13 +268,19 @@ const style = {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        marginTop: '5px',
+        marginTop: '8px',
     },
     infoContainer: {
         width: '100%',
         backgroundColor: '#fff',
         boxShadow: 1,
-        marginTop: '65px',
+        marginTop: '40px',
+
+    },
+    residentInfoBox: {
+        display: 'flex',
+        marginRight: '10px',
+        justifyContent: 'center',
     },
     infoFixed: {
         width: '35%',
@@ -295,9 +301,11 @@ const style = {
     },
 
     summaryCountContainer: {
-        marginTop: '50px',
+        marginTop: '30px',
     },
-
+    perItem: {
+        margin: '10px',
+    },
     detailContainer: {
         backgroundColor: '#fff',
         boxShadow: 1,
@@ -310,7 +318,6 @@ const style = {
             md: '300px',
             lg: '200px',
         },
-        display: 'flex',
         justifyContent: 'space-between',
     },
 
@@ -334,7 +341,7 @@ const style = {
     tableBox: {
         margin: 1,
         display: 'flex',
-        width: '65%',
+        width: '50%',
         flexDirection: 'column',
     },
     searchContainer: {
@@ -389,29 +396,7 @@ const style = {
         fontFamily: 'Poppins',
         color: '#000',
     },
-    menuItemText: {
-        fontFamily: 'Poppins',
-    },
-    summaryCountContainer: {
-        marginTop: '50px',
-    },
-    perItem: {
-        margin: '10px',
-    },
-    detailContainer: {
-        backgroundColor: '#fff',
-        boxShadow: 1,
-        borderRadius: '5vm',
-        padding: '15px',
-        display: 'flex',
-        width: {
-            xs: '300px',
-            sm: '300px',
-            md: '300px',
-            lg: '200px',
-        },
-        justifyContent: 'space-between',
-    },
+
     coloredIcon1: {
         backgroundColor: '#d46600',
         width: '70px',
@@ -430,9 +415,7 @@ const style = {
     infoIconColor: {
         color: '#fff',
     },
-    infoTextContainer: {
-        textAlign: 'right',
-    },
+
     infoDescription: {
         fontFamily: 'Poppins',
         fontSize: '14px',
@@ -540,6 +523,21 @@ const style = {
 
     coloredIcon8: {
         backgroundColor: '#d4a302',
+        width: '70px',
+        height: '70px',
+        marginTop: '-30px',
+        borderRadius: '5px',
+        boxShadow: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        '& .MuiSvgIcon-root': {
+            fontSize: '35px',
+        },
+    },
+    coloredIcon9: {
+        backgroundColor: '#D96098',
         width: '70px',
         height: '70px',
         marginTop: '-30px',

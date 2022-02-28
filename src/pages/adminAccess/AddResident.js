@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { db } from "../../utils/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, increment, updateDoc } from "firebase/firestore";
 import { Box } from "@mui/system";
 import style from "../../styles/DashboardStyles";
 import {
@@ -50,6 +50,41 @@ export default function AddResident() {
 
   //Firebase
   const createUser = async () => {
+    if (datas.gender === 'Male') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalMale: increment(1)
+      })
+    }
+    else {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalFemale: increment(1)
+      })
+    }
+    if (datas.fourPs === 'Eligible') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalFourPs: increment(1)
+      })
+    }
+    if (datas.voter === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalVoter: increment(1)
+      })
+    }
+    if (datas.pwd === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalPWD: increment(1)
+      })
+    }
+    if (datas.senior === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalSenior: increment(1)
+      })
+    }
+    if (datas.indigent === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalIndigent: increment(1)
+      })
+    }
     await addDoc(usersCollectionRef, {
       FirstName: datas.firstName,
       MiddleName: datas.middleName,
@@ -71,7 +106,7 @@ export default function AddResident() {
       Scholar: datas.scholar,
       Voter: datas.voter,
       Photo: datas.photoURL,
-    });
+    })
   };
   const handleChanged = (e) => {
     setDatas({ ...datas, [e.target.name]: e.target.value });
@@ -222,7 +257,7 @@ export default function AddResident() {
                   name='occupation'
                 />
               </Box>
-             
+
             </Box>
           </Grid>
           {/*Form Left*/}
@@ -259,8 +294,8 @@ export default function AddResident() {
                 </Select>
               </Box>
 
-            {/*Senior*/}
-            <Box sx={style.infoItemContainer}>
+              {/*Senior*/}
+              <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Senior:</Typography>
                 <Select
                   sx={style.genderSelect}

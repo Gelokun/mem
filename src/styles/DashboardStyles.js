@@ -295,6 +295,7 @@ const style = {
     residentInfoBox: {
         display: 'flex',
         justifyContent: 'center',
+        width: '32%',
     },
     infoFixed: {
         width: '35%',
@@ -321,6 +322,7 @@ const style = {
 
     summaryCountContainer: {
         marginTop: '30px',
+
     },
     perItem: {
         margin: '10px',

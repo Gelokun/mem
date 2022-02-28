@@ -33,6 +33,8 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 
 export default function ResidentInformation() {
   const [users, setUsers] = useState([]);
+  const [totality, setTotality] = useState([]);
+  const [population, setPopulation] = useState(0);
   const [selectedUser, setSelectedUser] = useState([])
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = (id) => {
@@ -47,6 +49,7 @@ export default function ResidentInformation() {
       const querySnapshot = await getDocs(collection(db, "users"));
       querySnapshot.forEach((doc) => {
         dataUser.push({ id: doc.id, ...doc.data() })
+        setPopulation(querySnapshot.size)
       })
       setTimeout(() => {
         setUsers(dataUser)
@@ -54,6 +57,21 @@ export default function ResidentInformation() {
       }, 500)
     }
     fetchData();
+  }, []);
+  useEffect(() => {
+    async function fetchTotalData() {
+      const total = doc(db, 'fixedData', 'totalData');
+      const docSnap = await getDoc(total);
+      if (docSnap.exists()) {
+        // Convert to City object
+        const city = docSnap.data();
+        // Use a City instance method
+        setTotality(city)
+      } else {
+        console.log("No such document!");
+      }
+    }
+    fetchTotalData();
   }, []);
   return (
     <Box>
@@ -185,7 +203,6 @@ export default function ResidentInformation() {
           {/*Table End Here*/}
 
           {/*Summary*/}
-
           <Box sx={style.summaryCountContainer}>
             <Grid container>
               {/*Population Count*/}
@@ -199,7 +216,7 @@ export default function ResidentInformation() {
                       Population Count:{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {population}
                     </Typography>
                   </Box>
                 </Box>
@@ -216,7 +233,7 @@ export default function ResidentInformation() {
                       Male Count:{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalMale}
                     </Typography>
                   </Box>
                 </Box>
@@ -233,7 +250,7 @@ export default function ResidentInformation() {
                       Female Count:{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalFemale}
                     </Typography>
                   </Box>
                 </Box>
@@ -250,7 +267,7 @@ export default function ResidentInformation() {
                       4P's Benefeciary:{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalFourPs}
                     </Typography>
                   </Box>
                 </Box>
@@ -265,7 +282,7 @@ export default function ResidentInformation() {
                   <Box sx={style.infoTextContainer}>
                     <Typography sx={style.infoDescription}>Voter: </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalVoter}
                     </Typography>
                   </Box>
                 </Box>
@@ -280,7 +297,7 @@ export default function ResidentInformation() {
                   <Box sx={style.infoTextContainer}>
                     <Typography sx={style.infoDescription}>PWD </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalPWD}
                     </Typography>
                   </Box>
                 </Box>
@@ -297,7 +314,7 @@ export default function ResidentInformation() {
                       Senior Citizen{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalSenior}
                     </Typography>
                   </Box>
                 </Box>
@@ -314,7 +331,7 @@ export default function ResidentInformation() {
                       Indigent{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      100{" "}
+                      {totality.totalIndigent}
                     </Typography>
                   </Box>
                 </Box>
@@ -331,7 +348,7 @@ export default function ResidentInformation() {
                       Solo Parent{" "}
                     </Typography>
                     <Typography sx={style.infoDescriptionValue}>
-                      10{" "}
+                      {totality.totalSoloParent}
                     </Typography>
                   </Box>
                 </Box>
@@ -340,7 +357,7 @@ export default function ResidentInformation() {
           </Box>
         </Grid>
 
-        <Grid item xs={2} sx={style.residentInfoBox}>
+        <Grid sx={style.residentInfoBox}>
           <Box sx={style.infoContainer}>
             <Box sx={style.personalInfoTitle}>
               <Typography sx={style.personalInfoText}>Resident's Personal Information</Typography>

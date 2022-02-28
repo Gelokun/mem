@@ -318,7 +318,7 @@ export default function ResidentInformation() {
           </Box>
         </Grid>
 
-        <Grid item xs sx={style.residentInfoBox}>
+        <Grid item xs sx={style.residentInfoContainer}>
           <Box sx={style.infoContainer}>
             <Box sx={style.personalInfoTitle}>
               <Typography sx={style.personalInfoText}>Resident's Personal Information</Typography>

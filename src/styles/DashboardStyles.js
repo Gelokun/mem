@@ -271,7 +271,7 @@ const style = {
         marginTop: '5px',
     },
     infoContainer: {
-        width: '100%',
+        width: '85%',
         backgroundColor: '#fff',
         boxShadow: 1,
         marginTop: '65px',

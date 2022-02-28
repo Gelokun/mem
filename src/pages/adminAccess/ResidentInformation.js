@@ -41,18 +41,20 @@ export default function ResidentInformation() {
       setSelectedUser(docSnap.data())
     })
   }
-  useEffect(async () => {
-    let dataUser = [];
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      dataUser.push({ id: doc.id, ...doc.data() })
-    })
-    setTimeout(() => {
-      setUsers(dataUser)
-      setIsLoading(false)
-    }, 500)
-  });
-
+  useEffect(() => {
+    async function fetchData() {
+      let dataUser = [];
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc) => {
+        dataUser.push({ id: doc.id, ...doc.data() })
+      })
+      setTimeout(() => {
+        setUsers(dataUser)
+        setIsLoading(false)
+      }, 500)
+    }
+    fetchData();
+  }, []);
   return (
     <Box>
       {/*Table and Information*/}
@@ -318,7 +320,7 @@ export default function ResidentInformation() {
                 </Box>
               </Grid>
 
-                 {/*Solo Parent*/}
+              {/*Solo Parent*/}
               <Grid item sx={style.perItem}>
                 <Box sx={style.detailContainer}>
                   <Box sx={style.coloredIcon9}>

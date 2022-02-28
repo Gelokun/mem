@@ -72,7 +72,7 @@ const style = {
     tabTextStyle: {
         fontFamily: 'Poppins',
         color: '#fff',
-        textTransform: 'capitalize',
+        textTransform: 'capitalized',
         fontSize: '15px',
         display: 'flex',
         alignItems: 'center',
@@ -87,7 +87,7 @@ const style = {
     logOutTextStyle: {
         fontFamily: 'Poppins',
         color: '#fff',
-        textTransform: 'capitalize',
+        textTransform: 'capitalized',
         fontSize: '15px',
         display: 'flex',
         alignItems: 'center',

@@ -110,7 +110,7 @@ export default function Dashboard() {
                         <Tab label="Documents and Request" value={'docReq'} icon={<ArticleIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
                         <Tab label="Organization" value={'orgs'} icon={<CorporateFareIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
                         <Tab label="Settings" value={'settings'} icon={<SettingsIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} />
-                        <Tab label="Log Out" icon={<LogoutIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} onClick={handleSignOut} />
+                        <Tab label="Log Out" icon={<LogoutIcon sx={style.dashboardIcon} />} sx={style.logOutTextStyle} onClick={handleSignOut} />
                     </TabList>
 
                     <TabPanel value={payload}>

@@ -309,6 +309,11 @@ const style = {
         fontFamily: 'Poppins',
         color: '#6e6e6e',
     },
+    mainInfo1: {
+        fontFamily: 'Poppins',
+        color: '#6e6e6e',
+        fontSize: '10px',
+    },
 
     menuItemText: {
         fontFamily: 'Poppins',

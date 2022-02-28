@@ -1,24 +1,37 @@
 import React, { useEffect, useState } from "react";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
-import style from "../../styles/DashboardStyles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
+import style from "../../styles/DashboardStyles";
+import { Box } from "@mui/system";
+import {
+  Button,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+  CircularProgress
+} from "@mui/material";
+
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function EditDeleteResident() {
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState([])
   const [isLoading, setIsLoading] = useState(false);
-
+  const handleClick = (id) => {
+    const userRef = doc(db, 'users', id)
+    getDoc(userRef).then((docSnap) => {
+      setSelectedUser(docSnap.data())
+    })
+  }
   useEffect(async () => {
     let dataUser = [];
     const querySnapshot = await getDocs(collection(db, "users"));
@@ -29,86 +42,344 @@ export default function EditDeleteResident() {
       setUsers(dataUser)
       setIsLoading(false)
     }, 500)
-
   });
-  const deleteUser = async (id) => {
-    const userDoc = doc(db, "users", id);
-    await deleteDoc(userDoc);
-  };
 
   return (
-    <Box sx={{ marginTop: "10px", width: "70%" }}>
-      <TableContainer sx={style.tableProperties1} component={Paper}>
-        <Table sx={{ minWidth: 500 }} aria-label='simple table'>
-          <TableHead sx={{ backgroundColor: '#16304d' }}>
-            <TableRow >
-              <TableCell align='right' sx={{ color: '#fff' }}>Lastname</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>FirstName</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>MiddleName</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Birthday</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Address</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Purok</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Email</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>ContactNum</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Religion</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Occupation</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Gender</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>CivilStatus</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Indigent</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>4Ps</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>SoloParent</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>PWD</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Scholar</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Voter</TableCell>
-              <TableCell align='right' sx={{ color: '#fff' }}>Photo</TableCell>
-            </TableRow>
-          </TableHead>
+    <Box sx={{ marginTop: "40vh", width: "100%" }}>
+      {/*Table and Information*/}
+      <Grid container>
+        {/*Table Details*/}
+        <Grid item sx={style.tableBox}>
+          {/*Search*/}
+          <Box sx={style.searchContainer}>
+            <Typography sx={{ fontFamily: "Poppins" }}>Search</Typography>
+            <Box sx={style.textAndButton}>
+              <TextField sx={style.searchBar} />
+              <Button variant='contained' sx={style.searchButton}>
+                <SearchIcon />
+              </Button>
+            </Box>
 
-          <TableBody>
-            {isLoading ? (<> </>) : (<>
-              {users.map((users) => {
-                return (
-                  <TableRow>
-                    <TableCell> {users.LastName}</TableCell>
-                    <TableCell> {users.FirstName}</TableCell>
-                    <TableCell> {users.MiddleName}</TableCell>
-                    <TableCell> {users.Address}</TableCell>
-                    <TableCell> {users.Purok}</TableCell>
-                    <TableCell> {users.Email}</TableCell>
-                    <TableCell> {users.ContactNum}</TableCell>
-                    <TableCell> {users.Religion}</TableCell>
-                    <TableCell> {users.Occupation}</TableCell>
-                    <TableCell> {users.Gender}</TableCell>
-                    <TableCell> {users.CivilStatus}</TableCell>
-                    <TableCell> {users.Indigent}</TableCell>
-                    <TableCell> {users.fourPs}</TableCell>
-                    <TableCell> {users.SoloParent}</TableCell>
-                    <TableCell> {users.PWD}</TableCell>
-                    <TableCell> {users.Scholar}</TableCell>
-                    <TableCell> {users.Voter}</TableCell>
-                    <TableCell> {users.Photo}</TableCell>
+            <Typography>Sort By: </Typography>
+            <Select
+              sx={style.sortChoice}
+              MenuProps={{
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left",
+                },
 
-                    {/*<button onClick={()=>{UpdateUser(user.id, user.age)}}>Increase Age</button>*/}
-                    <TableCell>
-                      <IconButton
-                        onClick={() => {
-                          deleteUser(users.id);
-                        }}
-                        aria-label='delete'
-                        size='large'
-                      >
-                        <DeleteIcon fontSize='inherit' />
-                      </IconButton>
-                    </TableCell>
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left",
+                },
+                getContentAnchorEl: null,
+              }}
+            >
+              <MenuItem value={"Last Name"} sx={style.menuItemText}>
+                Last Name
+              </MenuItem>
+              <MenuItem value={"First Name"} sx={style.menuItemText}>
+                First Name
+              </MenuItem>
+              <MenuItem value={"Age"} sx={style.menuItemText}>
+                Age
+              </MenuItem>
+              <MenuItem value={"Birthday"} sx={style.menuItemText}>
+                Birthday
+              </MenuItem>
+              <MenuItem value={"Gender"} sx={style.menuItemText}>
+                Gender
+              </MenuItem>
+              <MenuItem value={"Purok"} sx={style.menuItemText}>
+                Purok
+              </MenuItem>
+              <MenuItem value={"Religion"} sx={style.menuItemText}>
+                Religion
+              </MenuItem>
+              <MenuItem value={"Voter"} sx={style.menuItemText}>
+                Voter
+              </MenuItem>
+            </Select>
+          </Box>
+
+          {/*Table Start Here*/}
+
+          <Box sx={{ marginTop: "10px", width: "100%" }}>
+            <TableContainer sx={style.tableProperties1} component={Paper}>
+              <Table sx={{ minWidth: 500 }} aria-label='simple table'>
+                <TableHead sx={{ backgroundColor: '#16304d' }}>
+                  <TableRow >
+                    <TableCell align='right' sx={{ color: '#fff' }}>Lastname</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>FirstName</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>MiddleName</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Birthday</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Address</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Purok</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Email</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>ContactNum</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Religion</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Occupation</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Gender</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>CivilStatus</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Indigent</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>4Ps</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>SoloParent</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Senior</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>PWD</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Scholar</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Voter</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Photo</TableCell>
                   </TableRow>
-                )
-              })}
-            </>)}
+                </TableHead>
 
-          </TableBody>
+                <TableBody>
+                  {isLoading ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: (theme) => theme.palette.background.default, }}>
+                      <CircularProgress size='30vw' thickness={3} />
+                    </Box>) : (<>
+                      {users.map((user) => {
+                        return (
+                          <TableRow key={user.id} onClick={() => handleClick(user.id)} sx={{ cursor: 'pointer', '&:hover': { background: '#e3e3e3' } }}>
+                            <TableCell align='center'> {user.LastName}</TableCell>
+                            <TableCell align='center'> {user.FirstName}</TableCell>
+                            <TableCell align='center'> {user.MiddleName}</TableCell>
+                            <TableCell align='center'> {user.Birthday}</TableCell>
+                            <TableCell align='center'> {user.Address}</TableCell>
+                            <TableCell align='center'> {user.Purok}</TableCell>
+                            <TableCell align='center'> {user.Email}</TableCell>
+                            <TableCell align='center'> {user.ContactNum}</TableCell>
+                            <TableCell align='center'> {user.Religion}</TableCell>
+                            <TableCell align='center'> {user.Occupation}</TableCell>
+                            <TableCell align='center'> {user.Gender}</TableCell>
+                            <TableCell align='center'> {user.CivilStatus}</TableCell>
+                            <TableCell align='center'> {user.Indigent}</TableCell>
+                            <TableCell align='center'> {user.fourPs}</TableCell>
+                            <TableCell align='center'> {user.SoloParent}</TableCell>
+                            <TableCell align='center'> {user.Senior}</TableCell>
+                            <TableCell align='center'> {user.PWD}</TableCell>
+                            <TableCell align='center'> {user.Scholar}</TableCell>
+                            <TableCell align='center'> {user.Voter}</TableCell>
+                            <TableCell align='center'> {user.Photo}</TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </>)}
 
-        </Table>
-      </TableContainer>
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Box sx={{ marginTop: "10vh"}}>
+              <Button variant="contained" color="info" sx={{marginLeft: 3, marginRight: 2}}>EDIT</Button>
+              <Button variant="contained" color="error" sx={{marginRight: 2}}>DELETE</Button>
+              <Button variant="contained" color="success">SAVE</Button>
+              </Box>
+          </Box>
+          
+          
+        </Grid>
+
+        <Grid item xs={2} sx={{...style.residentInfoBox}}>
+          <Box sx={{...style.infoContainer,paddingRight: 2, paddingLeft: 2}}>
+            <Box sx={style.personalInfoTitle}>
+              <Typography sx={style.personalInfoText}>Resident's Personal Information</Typography>
+            </Box>
+
+            {/*First Name*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>First Name:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.FirstName} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Last Name*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Last Name:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.LastName} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Address*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Address:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Address} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Age*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Age:</Typography>
+              </Box>
+              <Box>
+                <Typography sx={style.mainInfo} value="16 Years Old" size="small"/>
+              </Box>
+            </Box>
+
+            {/*Birthday*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Birthday:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Birthday} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Civil Status*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Civil Status:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.CivilStatus} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Contact*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Contact No.:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.ContactNum} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Email Address*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Email Adress:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Email} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Gender*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Gender:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Gender} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Occupation*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Occupation:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Occupation} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Purok*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Purok:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Purok} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Religion*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Religion:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Religion} size="small"/>
+              </Box>
+            </Box>
+
+
+            {/*4P's*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>4P's:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.fourPs} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Indigent*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Indigent:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Indigent} size="small"/>
+              </Box>
+            </Box>
+
+            {/*PWD*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>PWD:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.PWD} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Scholar*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Scholar:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Scholar} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Senior*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Senior Citizen:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Senior} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Solo Parent*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Solo Parent:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.SoloParent} size="small"/>
+              </Box>
+            </Box>
+
+            {/*Voter*/}
+            <Box sx={style.residentInfoContainer}>
+              <Box sx={style.infoFixed}>
+                <Typography sx={style.infoTextFixed}>Voter:</Typography>
+              </Box>
+              <Box>
+                <TextField sx={style.mainInfo} value={selectedUser.Voter} size="small"/>
+              </Box>
+            </Box>
+            <Box sx={{ marginBottom: '10px', }} />
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
+
   );
 }

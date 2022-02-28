@@ -84,6 +84,21 @@ const style = {
             color: '#1976D2'
         }
     },
+    logOutTextStyle: {
+        fontFamily: 'Poppins',
+        color: '#fff',
+        textTransform: 'capitalize',
+        fontSize: '15px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'initial',
+        minHeight: '20px',
+        '&:hover': {
+            background: '#7C0000',
+            color: '#fff'
+        }
+    },
     dashboardIcon: {
         marginRight: '20px',
     },

@@ -116,27 +116,27 @@ export default function ResidentInformation() {
           <Box sx={{ marginTop: "10px", width: "100%" }}>
             <TableContainer sx={style.tableProperties1} component={Paper}>
               <Table sx={{ minWidth: 500 }} aria-label='simple table'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell align='center'>Last name</TableCell>
-                    <TableCell align='center'>First name</TableCell>
-                    <TableCell align='center'>Middle name</TableCell>
-                    <TableCell align='center'>Birthday</TableCell>
-                    <TableCell align='center'>Address</TableCell>
-                    <TableCell align='center'>Purok</TableCell>
-                    <TableCell align='center'>Email</TableCell>
-                    <TableCell align='center'>Contact Number</TableCell>
-                    <TableCell align='center'>Religion</TableCell>
-                    <TableCell align='center'>Occupation</TableCell>
-                    <TableCell align='center'>Gender</TableCell>
-                    <TableCell align='center'>Civil Status</TableCell>
-                    <TableCell align='center'>Indigent</TableCell>
-                    <TableCell align='center'>4Ps</TableCell>
-                    <TableCell align='center'>Solo Parent</TableCell>
-                    <TableCell align='center'>PWD</TableCell>
-                    <TableCell align='center'>Scholar</TableCell>
-                    <TableCell align='center'>Voter</TableCell>
-                    <TableCell align='center'>Photo</TableCell>
+                <TableHead sx={{ backgroundColor: '#16304d' }}>
+                  <TableRow >
+                    <TableCell align='right' sx={{ color: '#fff' }}>Lastname</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>FirstName</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>MiddleName</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Birthday</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Address</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Purok</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Email</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>ContactNum</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Religion</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Occupation</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Gender</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>CivilStatus</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Indigent</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>4Ps</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>SoloParent</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>PWD</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Scholar</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Voter</TableCell>
+                    <TableCell align='right' sx={{ color: '#fff' }}>Photo</TableCell>
                   </TableRow>
                 </TableHead>
 
@@ -147,7 +147,7 @@ export default function ResidentInformation() {
                     </Box>) : (<>
                       {users.map((user) => {
                         return (
-                          <TableRow key={user.id} onClick={() => handleClick(user.id)}>
+                          <TableRow key={user.id} onClick={() => handleClick(user.id)} sx={{ cursor: 'pointer', '&:hover': { background: '#e3e3e3' } }}>
                             <TableCell align='center'> {user.LastName}</TableCell>
                             <TableCell align='center'> {user.FirstName}</TableCell>
                             <TableCell align='center'> {user.MiddleName}</TableCell>

@@ -75,7 +75,8 @@ export default function Dashboard() {
                             display: 'flex',
                             minHeight: '100vh',
                             height: '100%',
-                            width: '18vw',
+                            minWidth: '15vw',
+                            maxWidth: '15vw',
                             backgroundColor: (theme) => theme.palette.primary.main
                         }}
                     >
@@ -112,7 +113,7 @@ export default function Dashboard() {
                         <Tab label="Log Out" icon={<LogoutIcon sx={style.dashboardIcon} />} sx={style.tabTextStyle} onClick={handleSignOut} />
                     </TabList>
 
-                    <TabPanel value={payload} sx={{ position: 'relative' }}>
+                    <TabPanel value={payload}>
                         <Outlet />
                     </TabPanel>
                 </TabContext>

@@ -257,13 +257,9 @@ const style = {
     uploadButton: {
         borderRadius: 0,
         boxShadow: 0,
+        marginBottom: 5,
         fontFamily: 'Poppins',
         textTransform: 'capitalize',
-    },
-
-    buttonContainer: {
-        display: 'flex',
-        justifyContent: 'space-between',
     },
     personalInfoTitle: {
         backgroundColor: '#16304d',
@@ -572,7 +568,29 @@ const style = {
             fontSize: '35px',
         },
     },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: 5,
+    },
 
+    saveButton: {
+        width: '49%',
+        backgroundColor: '#479923',
+        fontFamily: 'Poppins',
+        textTransform: 'capitalize',
+        boxShadow: 0,
+        borderRadius: 0,
+    },
+
+    cancelButton: {
+        width: '50%',
+        backgroundColor: '#870000',
+        fontFamily: 'Poppins',
+        textTransform: 'capitalize',
+        boxShadow: 0,
+        borderRadius: 0,
+    },
 
 }
 export default style

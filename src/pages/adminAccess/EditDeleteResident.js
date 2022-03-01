@@ -33,6 +33,7 @@ import SearchIcon from "@material-ui/icons/Search";
 export default function EditDeleteResident() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
+  const [userToDelete, setUserToDelete] = useState([])
   const [isLoading, setIsLoading] = useState(false);
   const handleClick = (id) => {
     const userRef = doc(db, "users", id);
@@ -40,65 +41,71 @@ export default function EditDeleteResident() {
       setSelectedUser(docSnap.data());
     });
   };
-  useEffect(async () => {
-    let dataUser = [];
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      dataUser.push({ id: doc.id, ...doc.data() });
-    });
-    setTimeout(() => {
-      setUsers(dataUser);
-      setIsLoading(false);
-    }, 500);
-  });
+  useEffect(() => {
+    async function fetchData() {
+      let dataUser = [];
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc) => {
+        dataUser.push({ id: doc.id, ...doc.data() })
+      })
+      setTimeout(() => {
+        setUsers(dataUser)
+        setIsLoading(false)
+        console.log('done');
+      }, 5000)
+    }
+    fetchData();
+  }, []);
 
-  const deleteUser = async (id) => {
+  const deleteUser = (id) => {
     const userDoc = doc(db, "users", id);
-     await deleteDoc(userDoc);
-      if (id.gender === 'Male') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalMale: increment(-1)
-        })
-      }
-      else {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalFemale: increment(-1)
-        })
-      }
-      if (id.fourPs === 'Eligible') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalFourPs: increment(-1)
-        })
-      }
-      if (id.voter === 'Yes') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalVoter: increment(-1)
-        })
-      }
-      if (id.pwd === 'Yes') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalPWD: increment(-1)
-        })
-      }
-      if (id.senior === 'Yes') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalSenior: increment(-1)
-        })
-      }
-      if (id.indigent === 'Yes') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalIndigent: increment(-1)
-        })
-  
-      }
-      if (id.SoloParent === 'Yes') {
-        updateDoc(doc(db, 'fixedData', 'totalData'), {
-          totalSoloParent: increment(-1)
-        })
-  
-      }
-   
-   
+    getDoc(userDoc).then((docSnap) => {
+      setUserToDelete(docSnap.data())
+    })
+    if (userToDelete.Gender === 'Male') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalMale: increment(-1)
+      })
+    }
+    if (userToDelete.Gender === 'Female') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalFemale: increment(-1)
+      })
+    }
+    if (userToDelete.fourPs === 'Eligible') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalFourPs: increment(-1)
+      })
+    }
+    if (userToDelete.Voter === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalVoter: increment(-1)
+      })
+    }
+    if (userToDelete.PWD === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalPWD: increment(-1)
+      })
+    }
+    if (userToDelete.Senior === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalSenior: increment(-1)
+      })
+    }
+    if (userToDelete.Indigent === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalIndigent: increment(-1)
+      })
+
+    }
+    if (userToDelete.SoloParent === 'Yes') {
+      updateDoc(doc(db, 'fixedData', 'totalData'), {
+        totalSoloParent: increment(-1)
+      })
+
+    }
+    console.log(userToDelete);
+    deleteDoc(userDoc);
   };
 
   return (
@@ -228,7 +235,7 @@ export default function EditDeleteResident() {
                       Photo
                     </TableCell>
                     <TableCell align='right' sx={{ color: "#fff" }}>
-                     Status
+                      Status
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -253,7 +260,7 @@ export default function EditDeleteResident() {
                         return (
                           <TableRow
                             key={user.id}
-                            
+
                             sx={{
                               cursor: "pointer",
                               "&:hover": { background: "#e3e3e3" },
@@ -315,27 +322,27 @@ export default function EditDeleteResident() {
                             </TableCell>
                             <TableCell align='center'> {user.Voter}</TableCell>
                             <TableCell align='center'> {user.Photo}</TableCell>
-                            <TableCell sx={{display: 'flex', flexDirection: 'row'}}>
-                              
+                            <TableCell sx={{ display: 'flex', flexDirection: 'row' }}>
+
                               <Button
                                 variant='contained'
                                 color='info'
-                                sx={{marginRight: 2,  flexDirection:'column' }}
+                                sx={{ marginRight: 2, flexDirection: 'column' }}
                                 onClick={() => handleClick(user.id)}
                               >
                                 EDIT
                               </Button>
-                           
+
                               <Button
                                 onClick={() => {
                                   deleteUser(user.id);
                                 }}
                                 variant='contained'
                                 color='error'
-                                sx={{ flexDirection:'column' }}
+                                sx={{ flexDirection: 'column' }}
                               > DELETE</Button>
 
-                            
+
                             </TableCell>
                           </TableRow>
                         );

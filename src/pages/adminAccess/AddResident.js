@@ -7,9 +7,9 @@ import {
   increment,
   updateDoc,
 } from "firebase/firestore";
-import { Box } from "@mui/system";
 import style from "../../styles/DashboardStyles";
 import {
+  Box,
   Button,
   Grid,
   MenuItem,
@@ -17,9 +17,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import admin from "../../images/noone.jpg";
 import moment from "moment";
 
 import {
@@ -27,6 +27,10 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+
+const Input = styled('input')({
+  display: 'none',
+});
 
 export default function AddResident() {
 
@@ -64,7 +68,7 @@ export default function AddResident() {
   const usersCollectionRef = collection(db, "users");
 
   //Firebase
-  const createUser = async () => {
+  const createUser = async (file) => {
     if (datas.gender === "Male") {
       updateDoc(doc(db, "fixedData", "totalData"), {
         totalMale: increment(1),
@@ -127,39 +131,43 @@ export default function AddResident() {
       Voter: datas.voter,
       Photo: datas.photo,
     });
+    
+    //ETO UNG UPLOAD CODE MO BABY
+    // if (!file) return;
+    // const sotrageRef = ref(storage, `files/${file.name}`);
+    // const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    // uploadTask.on(
+    //   "state_changed",
+    //   (snapshot) => {
+    //     const prog = Math.round(
+    //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+    //     );
+    //     setProgress(prog);
+    //   },
+    //   (error) => console.log(error),
+    //   () => {
+    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //       console.log("File available at", downloadURL);
+    //     });
+    //   }
+    // );
   };
+
   const handleChanged = (e) => {
     setDatas({ ...datas, [e.target.name]: e.target.value });
   };
 
   const [progress, setProgress] = useState(0);
-  const formHandler = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    uploadFiles(file);
-  };
-
-  const uploadFiles = (file) => {
-    //
-    if (!file) return;
-    const sotrageRef = ref(storage, `files/${file.name}`);
-    const uploadTask = uploadBytesResumable(sotrageRef, file);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(prog);
-      },
-      (error) => console.log(error),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-        });
+  const [preview, setpreview] = useState('')
+  const imageHandler = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setpreview(reader.result)
       }
-    );
+    }
+    reader.readAsDataURL(e.target.files[0])
   };
   return (
     <Box>
@@ -556,45 +564,46 @@ export default function AddResident() {
 
               {/*Picture*/}
 
-        {/*Picture*/}
-        <form onSubmit={formHandler}>
-        <Box sx={style.pictureContainerMain} >
-                          <Box sx={style.pictureContainer}>
-                            <img
-                              alt='upload'
-                              src={admin}
-                              style={{
-                                width: "150px",
-                                height: "150px",
-                                objectFit: "cover",
-                              }}
-                            />
-                          </Box>
-                          <Box sx={{ width: "100%" }}>
-                            <Box sx={style.pictureDetail}>
-                              <Box>
-                              <input type='file' className='input' value={datas.photo} name='photo' onChange={handleChanged} />
-                                <Typography sx={style.instructionUpload}>
-                                  <hr />
-                                <h2>Uploading done {progress}%</h2>
-                                </Typography>
-                                <Typography sx={style.subInstruction}>
-                                  Must be in .jpg or .png format. 2mb Maximum
-                                  File Size.
-                                </Typography>
-                              </Box>
-
-                              <Button
-                                variant='contained'
-                                sx={style.uploadButton}
-                                type="submit"
-                              >
-                                Upload
-                              </Button>
-                            </Box>
-                          </Box>
-                        </Box>
-                        </form>
+              {/*Picture*/}
+              <Box sx={style.pictureContainerMain} >
+                <Box sx={style.pictureContainer}>
+                  <img
+                    alt='upload'
+                    src={preview}
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Box>
+                <Box sx={{ width: "100%" }}>
+                  <Box sx={style.pictureDetail}>
+                    <Box>
+                      <Typography sx={style.instructionUpload}>
+                        <hr />
+                        <h2>Uploading done {progress}%</h2>
+                      </Typography>
+                      <Typography sx={style.subInstruction}>
+                        Must be in .jpg or .png format. 2mb Maximum
+                        File Size.
+                      </Typography>
+                    </Box>
+                    <label htmlFor="contained-button-file">
+                      <Input accept="image/*" id="contained-button-file" type="file" multiple onClick={imageHandler} />
+                      <Button
+                        fullWidth
+                        variant='contained'
+                        sx={style.uploadButton}
+                        type="submit"
+                        component="span"
+                      >
+                        Upload
+                      </Button>
+                    </label>
+                  </Box>
+                </Box>
+              </Box>
               <Box sx={{ marginBottom: "25px" }} />
 
               {/*Button*/}

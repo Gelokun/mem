@@ -40,18 +40,21 @@ export default function EditDeleteResident() {
       setSelectedUser(docSnap.data());
     });
   };
-  useEffect(async () => {
-    let dataUser = [];
-    const querySnapshot = await getDocs(collection(db, "users"));
-    querySnapshot.forEach((doc) => {
-      dataUser.push({ id: doc.id, ...doc.data() });
-    });
-    setTimeout(() => {
-      setUsers(dataUser);
-      setIsLoading(false);
-    }, 500);
-  });
-
+  useEffect(() => {
+    async function fetchData() {
+      let dataUser = [];
+      const querySnapshot = await getDocs(collection(db, "users"));
+      querySnapshot.forEach((doc) => {
+        dataUser.push({ id: doc.id, ...doc.data() })
+      })
+      setTimeout(() => {
+        setUsers(dataUser)
+        setIsLoading(false)
+      }, 500)
+    }
+    fetchData();
+  }, []);
+  
   const deleteUser = async (id) => {
     const userDoc = doc(db, "users", id);
      await deleteDoc(userDoc);

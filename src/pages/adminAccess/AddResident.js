@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import { db } from "../../utils/firebase";
-import { addDoc, collection, doc, increment, updateDoc } from "firebase/firestore";
+import { db, storage } from "../../utils/firebase";
+import {
+  addDoc,
+  collection,
+  doc,
+  increment,
+  updateDoc,
+} from "firebase/firestore";
 import { Box } from "@mui/system";
 import style from "../../styles/DashboardStyles";
 import {
@@ -16,7 +22,16 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import admin from "../../images/noone.jpg";
 import moment from "moment";
 
+import {
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+
 export default function AddResident() {
+
+
+  ///
   const [birthDate, setBirthDate] = useState(new Date("2014-08-18"));
   const handleDate = (newValue) => {
     setBirthDate(newValue);
@@ -43,53 +58,58 @@ export default function AddResident() {
     pwd: "",
     scholar: "",
     voter: "",
-    photoURL: "",
+    photo: "",
   });
 
   const usersCollectionRef = collection(db, "users");
 
   //Firebase
   const createUser = async () => {
-    if (datas.gender === 'Male') {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalMale: increment(1)
-      })
+    if (datas.gender === "Male") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalMale: increment(1),
+      });
+    } else {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalFemale: increment(1),
+      });
     }
-    else {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalFemale: increment(1)
-      })
+    if (datas.fourPs === "Eligible") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalFourPs: increment(1),
+      });
     }
-    if (datas.fourPs === 'Eligible') {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalFourPs: increment(1)
-      })
+    if (datas.voter === "Yes") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalVoter: increment(1),
+      });
     }
-    if (datas.voter === 'Yes') {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalVoter: increment(1)
-      })
+    if (datas.pwd === "Yes") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalPWD: increment(1),
+      });
     }
-    if (datas.pwd === 'Yes') {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalPWD: increment(1)
-      })
+    if (datas.senior === "Yes") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalSenior: increment(1),
+      });
     }
-    if (datas.senior === 'Yes') {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalSenior: increment(1)
-      })
+    if (datas.indigent === "Yes") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalIndigent: increment(1),
+      });
     }
-    if (datas.indigent === 'Yes') {
-      updateDoc(doc(db, 'fixedData', 'totalData'), {
-        totalIndigent: increment(1)
-      })
+    if (datas.soloParent === "Yes") {
+      updateDoc(doc(db, "fixedData", "totalData"), {
+        totalSoloParent: increment(1),
+      });
     }
+
     await addDoc(usersCollectionRef, {
       FirstName: datas.firstName,
       MiddleName: datas.middleName,
       LastName: datas.lastName,
-      Birthday: moment(new Date(birthDate)).format('LL').toString(),
+      Birthday: moment(new Date(birthDate)).format("LL").toString(),
       Address: datas.address,
       Purok: datas.purok,
       Email: datas.email,
@@ -105,14 +125,42 @@ export default function AddResident() {
       PWD: datas.pwd,
       Scholar: datas.scholar,
       Voter: datas.voter,
-      Photo: datas.photoURL,
-    })
+      Photo: datas.photo,
+    });
   };
   const handleChanged = (e) => {
     setDatas({ ...datas, [e.target.name]: e.target.value });
   };
 
+  const [progress, setProgress] = useState(0);
+  const formHandler = (e) => {
+    e.preventDefault();
+    const file = e.target[0].files[0];
+    uploadFiles(file);
+  };
 
+  const uploadFiles = (file) => {
+    //
+    if (!file) return;
+    const sotrageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+        });
+      }
+    );
+  };
   return (
     <Box>
       <Box sx={style.formRegisterContainer}>
@@ -131,7 +179,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>First Name:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.firstName}
@@ -143,7 +191,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Middle Name:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.middleName}
@@ -155,7 +203,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Last Name:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.lastName}
@@ -190,7 +238,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Address:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.address}
@@ -202,7 +250,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Purok:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.purok}
@@ -214,7 +262,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Email:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.email}
@@ -226,7 +274,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Contact No.:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.contactNum}
@@ -238,7 +286,7 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Religion:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.religion}
@@ -250,14 +298,13 @@ export default function AddResident() {
               <Box sx={style.infoItemContainer}>
                 <Typography sx={style.infoItemText}>Occupation:</Typography>
                 <TextField
-                  size="small"
+                  size='small'
                   sx={style.infoTextBox}
                   onChange={handleChanged}
                   value={datas.occupation}
                   name='occupation'
                 />
               </Box>
-
             </Box>
           </Grid>
           {/*Form Left*/}
@@ -397,7 +444,7 @@ export default function AddResident() {
                   name='fourPs'
                 >
                   <MenuItem value={"Eligible"}>Eligible</MenuItem>
-                  <MenuItem value={'Not Qualified'}>Not Qualified</MenuItem>
+                  <MenuItem value={"Not Qualified"}>Not Qualified</MenuItem>
                 </Select>
               </Box>
 
@@ -508,36 +555,46 @@ export default function AddResident() {
               <Box sx={{ marginBottom: "-5px" }} />
 
               {/*Picture*/}
-              <Box sx={style.pictureContainerMain}>
-                <Box sx={style.pictureContainer}>
-                  <img
-                    alt='upload'
-                    src={admin}
-                    style={{
-                      width: "150px",
-                      height: "150px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-                <Box sx={{ width: "100%" }}>
-                  <Box sx={style.pictureDetail}>
-                    <Box>
-                      <Typography sx={style.instructionUpload}>
-                        Upload Picture
-                      </Typography>
-                      <Typography sx={style.subInstruction}>
-                        Must be in .jpg or .png format. 2mb Maximum File Size.
-                      </Typography>
-                    </Box>
 
-                    <Button variant='contained' sx={style.uploadButton}>
-                      Upload
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
+        {/*Picture*/}
+        <form onSubmit={formHandler}>
+        <Box sx={style.pictureContainerMain} >
+                          <Box sx={style.pictureContainer}>
+                            <img
+                              alt='upload'
+                              src={admin}
+                              style={{
+                                width: "150px",
+                                height: "150px",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </Box>
+                          <Box sx={{ width: "100%" }}>
+                            <Box sx={style.pictureDetail}>
+                              <Box>
+                              <input type='file' className='input' value={datas.photo} name='photo' onChange={handleChanged} />
+                                <Typography sx={style.instructionUpload}>
+                                  <hr />
+                                <h2>Uploading done {progress}%</h2>
+                                </Typography>
+                                <Typography sx={style.subInstruction}>
+                                  Must be in .jpg or .png format. 2mb Maximum
+                                  File Size.
+                                </Typography>
+                              </Box>
 
+                              <Button
+                                variant='contained'
+                                sx={style.uploadButton}
+                                type="submit"
+                              >
+                                Upload
+                              </Button>
+                            </Box>
+                          </Box>
+                        </Box>
+                        </form>
               <Box sx={{ marginBottom: "25px" }} />
 
               {/*Button*/}
